@@ -1,0 +1,28 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand{
+    font-family: 'Comfortaa', cursive;
+}
+
+.vl {
+    border-left: 2px solid #d8d8d8;
+    border-radius: 3px;
+    height: 2.5em;
+}
+
+.foo-brand{
+    font-size: x-large;
+}
+
+.xxl-label{
+    font-size: xx-large;
+}
+
+.light-blue-bg{
+    background-color: #dbf9fa;
+}
