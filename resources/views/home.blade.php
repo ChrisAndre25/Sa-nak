@@ -40,126 +40,51 @@
             <div class="carousel-inner" role="listbox">
                 <!--First slide-->
                 <div class="carousel-item active">
-                    {{-- @foreach($popular as $item) --}}
+                    @foreach($firstItems as $item)
                     <div class="col-md-3" style="float:left">
                         <div class="card mb-2">
                             <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
+                                src="/storage/products/{{ $item->image }}"
                                 alt="Card image cap">
                             <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
+                                <h4 class="card-title">{{ $item->name }}</h4>
+                                <label class="card-text">Rp {{ number_format((($item->sell_price != 0)) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
+                                @if($item->sell_price != 0)
+                                <a class="btn btn-info text-white" href="{{ route('view-product', $item->id) }}">Beli</a>
+                                @endif
+                                @if($item->rent_price != 0)
+                                <a class="btn btn-outline-primary"  href="{{ route('view-product', $item->id) }}">Sewa</a>
+                                @endif
                             </div>
                         </div>
                     </div>
-                    {{-- @endforeach --}}
-                    {{-- DELETE FROM HERE --}}
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- END OF DELETE --}}
-
+                    @endforeach
+                    
                 </div>
                 <!--/.First slide-->
 
                 <!--Second slide-->
                 <div class="carousel-item">
 
+                    @foreach($secondItems as $item)
                     <div class="col-md-3" style="float:left">
                         <div class="card mb-2">
                             <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
+                                src="/storage/products/{{ $item->image }}"
                                 alt="Card image cap">
                             <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
+                                <h4 class="card-title">{{ $item->name }}</h4>
+                                <label class="card-text">Rp {{ number_format(($item->sell_price != 0) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
+                                @if($item->sell_price != 0)
+                                <a class="btn btn-info text-white" href="{{ route('view-product', $item->id) }}">Beli</a>
+                                @endif
+                                @if($item->rent_price != 0)
+                                <a class="btn btn-outline-primary"  href="{{ route('view-product', $item->id) }}">Sewa</a>
+                                @endif
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <img height="200em" class="card-img-top"
-                                src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Card title</h4>
-                                <label class="card-text">Rp 20.000,00</label><br>
-                                <a class="btn btn-info text-white" role="button">Beli</a>
-                                <a class="btn btn-outline-primary" role="button">Sewa</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <!--/.Second slide-->
             </div>

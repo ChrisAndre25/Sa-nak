@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
-@section('title',"$category->name")
+@section('title',"Search Result")
 
 @section('content')
 <div class="container py-4">
-    <div class="row py-2 d-flex justify-content-between">
-        <h3 class="font-weight-bold text-primary">{{ $category->name }}</h3>
-    </div>
+
+    @if(count($products) > 0)
     <div class="d-flex flex-wrap">
-        @foreach ($category->product as $item)
+        @foreach ($products as $item)
         <div class="col-md-3">
             <div class="card mb-2">
                 <img height="200em" class="card-img-top"
@@ -28,5 +27,11 @@
         </div>
         @endforeach
     </div>
+    {{ $products->links() }}
+    @else
+        <div class="text-center">
+            <h4>Kata pencarian tidak ditemukan</h4>
+        </div>
+    @endif
 </div>
 @endsection

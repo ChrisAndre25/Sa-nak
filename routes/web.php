@@ -13,14 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user/payment');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('view-product/{product}', 'HomeController@viewProduct')->name('view-product');
+Route::post('rating', 'HomeController@addRating')->name('add-rating');
+Route::match(['PUT', 'PATCH'], '/rating/{rating}', 'HomeController@updateRating')->name('update-rating');
+Route::get('catalog', 'HomeController@catalog')->name('catalog');
+Route::get('view-category/{id}', 'HomeController@viewCategory')->name('view-category');
+Route::get('view-cart', 'ProductController@viewCart')->name('view-cart');
+Route::get('view-payment', 'ProductController@viewPayment')->name('view-payment');
+Route::post('search-product', 'HomeController@searchProduct');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('cart', 'ProductController@createCart');
+Route::get('update-cart/{cart}', 'ProductController@editCart')->name('edit-cart');
+Route::match(['PUT', 'PATCH'], '/update-cart/{cart}','ProductController@updateCart');
+Route::delete('delete-cart/{cart}', 'ProductController@deleteCart');
+Route::post('checkout', 'ProductController@checkOut');
+Route::get('history', 'ProductController@transactionHistory')->name('history');
+Route::get('return-rent/{id}', 'ProductController@returnRentConfirmation')->name('return-rent');
+Route::get('return/{id}', 'ProductController@returnRent')->name('return');

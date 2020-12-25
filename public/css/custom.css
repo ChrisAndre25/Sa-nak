@@ -26,3 +26,12 @@ body{
 .light-blue-bg{
     background-color: #dbf9fa;
 }
+
+.collapsed i.fa-chevron-up{
+    transform: rotate(180deg) !important;
+    transition: 500ms ease;
+}
+
+i.fa-chevron-up{
+    transition: 500ms ease;
+}

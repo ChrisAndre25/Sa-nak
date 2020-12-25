@@ -12,10 +12,10 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto ml-3">
                 <li class="nav-item">
-                    <a class="nav-link text-primary font-weight-bold" href="#">Home</a>
+                    <a class="nav-link text-primary font-weight-bold" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-primary font-weight-bold" href="#">Katalog</a>
+                    <a class="nav-link text-primary font-weight-bold" href="{{ route('catalog') }}">Katalog</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-primary font-weight-bold" href="#" id="navbarDropdown"
@@ -23,29 +23,38 @@
                         Kategori
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {{-- @foreach ($type as $item) --}}
-                        <a class="dropdown-item" href="#">Test</a>
-                        {{-- @endforeach --}}
+                        @foreach ($categories as $category)
+                        <a class="dropdown-item" href="{{ route('view-category', $category->id) }}">{{ $category->name }}</a>
+                        @endforeach
                     </div>
                 </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
-                <form class="form-inline mx-2">
+                <form class="form-inline mx-2" action="{{ action('HomeController@searchProduct') }}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control" type="text" name="product" id="product" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search fa-lg"></i>
                         </button>
                     </div>
                 </form>
 
+                @if(Auth::check())
                 <li class="nav-item">
-                    <a class="nav-link my-1" href="" title="Cart">
+                    <a class="nav-link my-1" href="{{ route('view-cart') }}" title="Cart">
                         <i class="fas fa-shopping-cart fa-lg text-info"></i>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link my-1" href="{{ route('history') }}" title="Transaction History">
+                        <i class="fas fa-history fa-lg text-info"></i>
+                    </a>
+                </li>
+                @endif
 
                 <li class="nav-item my-auto mx-2">
                     <div class="vl"></div>

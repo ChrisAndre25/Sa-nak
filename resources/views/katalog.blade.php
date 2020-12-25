@@ -17,76 +17,33 @@
 </div>
 
 <div class="container py-4">
-    {{-- @foreach ($types as $type) --}}
+    @foreach ($categories as $category)
     <div class="row py-2 d-flex justify-content-between">
-        <h3 class="font-weight-bold text-primary">Boneka</h3>
-        <a class="" href="#">Lebih banyak ></a>
+        <h3 class="font-weight-bold text-primary">{{ $category->name }}</h3>
+        <a class="" href="{{ route('view-category', $category->id) }}">Lebih banyak ></a>
     </div>
     <div class="row py-3">
-        {{-- @foreach($product as $item) --}}
-        <div class="col-md-3">
-            <div class="card mb-2 text-center">
-                <div class="card-img-top">
-                    <img height="200em" style="max-width:190em;" class="" src="{{asset('img/20201020_213711.jpg')}}" alt="Card image cap">
-                </div>
-                <div class="card-body text-center">
-                    <h4 class="card-title">Card title</h4>
-                    <label class="card-text">Rp 20.000,00</label><br>
-                    <a class="btn btn-info text-white" role="button">Beli</a>
-                    <a class="btn btn-outline-primary" role="button">Sewa</a>
-                </div>
-            </div>
-        </div>
-        {{-- @endforeach --}}
-        
-        {{-- REMOVE BELOW --}}
+        @foreach($category->product as $item)
         <div class="col-md-3">
             <div class="card mb-2">
-                <div class="card-img-top">
-                    <img height="200em" width="100%" class=""
-                    src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
+                <img height="200em" class="card-img-top"
+                    src="/storage/products/{{ $item->image }}"
                     alt="Card image cap">
-                </div>
                 <div class="card-body text-center">
-                    <h4 class="card-title">Card title</h4>
-                    <label class="card-text">Rp 20.000,00</label><br>
-                    <a class="btn btn-info text-white" role="button">Beli</a>
-                    <a class="btn btn-outline-primary" role="button">Sewa</a>
+                    <h4 class="card-title">{{ $item->name }}</h4>
+                    <label class="card-text">Rp {{ number_format(($item->sell_price != 0) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
+                    @if($item->sell_price != 0)
+                    <a class="btn btn-info text-white" href="{{ route('view-product', $item->id) }}">Beli</a>
+                    @endif
+                    @if($item->rent_price != 0)
+                    <a class="btn btn-outline-primary"  href="{{ route('view-product', $item->id) }}">Sewa</a>
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card mb-2">
-                <div class="card-img-top">
-                    <img height="200em" width="100%" class=""
-                    src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                    alt="Card image cap">
-                </div>
-                <div class="card-body text-center">
-                    <h4 class="card-title">Card title</h4>
-                    <label class="card-text">Rp 20.000,00</label><br>
-                    <a class="btn btn-info text-white" role="button">Beli</a>
-                    <a class="btn btn-outline-primary" role="button">Sewa</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card mb-2">
-                <div class="card-img-top">
-                    <img height="200em" width="100%" class=""
-                    src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                    alt="Card image cap">
-                </div>
-                <div class="card-body text-center">
-                    <h4 class="card-title">Card title</h4>
-                    <label class="card-text">Rp 20.000,00</label><br>
-                    <a class="btn btn-info text-white" role="button">Beli</a>
-                    <a class="btn btn-outline-primary" role="button">Sewa</a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
-    {{-- @endforeach --}}
+    @endforeach
 </div>
 
 @endsection

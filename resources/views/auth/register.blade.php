@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Homepage')
+@section('title','Sanak - Daftar')
 
 @section('content')
 <div class="container">
@@ -13,7 +13,7 @@
             <img width="85%" src="/img/leftPic.png">
         </div>
         <div class="col-md-5">
-            <div class="card">
+            <div class="card mb-2">
                 <div class="text-center pt-4">
                     <h4>Daftar</h4>
                 </div>
@@ -51,10 +51,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="phone-num" class="col-md-4 col-form-label text-md-right">{{ __('Nomor HP') }}</label>
+                            <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Nomor HP') }}</label>
 
                             <div class="col-md">
-                                <input id="phone-num" type="text" class="form-control">
+                                <input id="phone_number" name="phone_number" type="text" class="form-control" value="{{ old('phone_number') }}">
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer"><small>Cth. 089612345678</small></footer>
+                                </blockquote>
                             </div>
                         </div>
 
@@ -62,7 +65,10 @@
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
 
                             <div class="col-md">
-                                <input id="address" type="text" class="form-control">
+                                <input id="address" name="address" type="text" class="form-control" value="{{ old('address') }}">
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer"><small>Cth. Jl. Siaran No. 25, RT 104/RW 08, Jakarta</small></footer>
+                                </blockquote>
                             </div>
                         </div>
 
@@ -81,17 +87,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi Kata Sandi') }}</label>
+                            <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi Kata Sandi') }}</label>
 
                             <div class="col-md">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
                         <div class="form-group row mb-0 justify-content-center">
                             <div class="col-md-10">
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    {{ __('Register') }}
+                                    {{ __('Daftar') }}
                                 </button>
                             </div>
                         </div>
