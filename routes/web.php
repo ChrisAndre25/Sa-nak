@@ -35,3 +35,9 @@ Route::post('checkout', 'ProductController@checkOut');
 Route::get('history', 'ProductController@transactionHistory')->name('history');
 Route::get('return-rent/{id}', 'ProductController@returnRentConfirmation')->name('return-rent');
 Route::get('return/{id}', 'ProductController@returnRent')->name('return');
+
+Route::get('/add-product', 'SellerController@createProduct')->name('add-product');
+Route::post('/add-product', 'SellerController@addProduct');
+Route::get('/edit-product/{product}', 'SellerController@editProduct')->name('edit-product');
+Route::match(['PUT', 'PATCH'], '/edit-product/{id}', 'SellerController@updateProduct');
+Route::delete('/delete-product/{id}', 'SellerController@deleteProduct');

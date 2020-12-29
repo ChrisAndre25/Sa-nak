@@ -33,22 +33,6 @@ class SellerController extends Controller
         $seller->save();
     }
 
-    public  function validateLogin(Request $request){
-        $this->validate($request,[
-            'email' => 'required|email',
-            'password' => 'required|alphaNum|min:6'
-        ]);
-
-        $loginData = $request->only('email','password');
-
-        if(Auth::attempt($loginData)){
-            // return redirect('/home')
-        }
-        else{
-            return back()->with('error','Wrong Login Datas');
-        }
-    }
-
     public function addProductType(Request $request){
         $this->validate($request,[
             'name' => 'required|unique:product_categories|min:5',
@@ -75,50 +59,86 @@ class SellerController extends Controller
         $category->delete();
     }
 
+    public function createProduct(){
+
+        return view('admin.add_product', [
+            'categories' => Category::all(),
+        ]);
+    }
+
     public function addProduct(Request $request){
         $sellerId = Auth::id();
 
         $this->validate($request,[
             'name' => 'required|unique:products|min:5',
             'description' => 'required|min:10',
-            'category' => 'required',
-            'price' => 'required|integer|min:5001',
+            'category_id' => 'required',
+            'sell_price' => 'nullable|integer|min:5001',
+            'rent_price' => 'nullable|integer|min:5001',
             'stock' => 'required|integer|min:1',
             'image' => 'required|mimes:jpeg,jpg,png'
         ]);
 
-        $image_path = $request->file('image')->store('Image','public');
-        $category_id = Category::select('id')->where('name',$request->category)->get();
+        if($request->hasFile('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileName = str_replace(" ", "_", strtolower($request->name)).'.'.$extension;
+            $path = $request->file('image')->storeAs('/public/products/', $fileName);
+        }else{
+            $fileName = NULL;
+        }
 
         $newProduct = new Product();
-        $newProduct->seller_id = $sellerId;
-        $newProduct->category_id = $category_id;
+        $newProduct->seller_id = Auth()->user()->id;
+        $newProduct->category_id = $request->category_id;
         $newProduct->name = $request->name;
-        $newProduct->image = $image_path;
+        $newProduct->image = $fileName;
         $newProduct->stock = $request->stock;
         $newProduct->description = $request->description;
-        $newProduct->sell_price = $request->price;
+
+        if($request->sell_price != NULL){
+            $newProduct->sell_price = $request->sell_price;
+            $newProduct->is_sold = 1;
+        }else if($request->rent_price != NULL){
+            $newProduct->rent_price = $request->rent_price;
+            $newProduct->is_rented = 1;
+        }
+
         $newProduct->save();
+
+        return redirect()->back()->with('success', 'New Product Added');
+    }
+
+    public function editProduct(Product $product){
+
+        return view('admin.edit_product', [
+            'product' => $product
+        ]);
     }
 
     public function updateProduct(Request $request, $id){
         $this->validate($request,[
-            'name' => 'required|unique:products|min:5',
+            'name' => 'required|min:5',
             'description' => 'required|min:10',
-            'price' => 'required|integer|min:5001',
+            'sell_price' => 'nullable|integer|min:5001',
+            'rent_price' => 'nullable|integer|min:5001',
             'stock' => 'required|integer|min:1'
         ]);
 
         $productDetail = Product::find($id);
         $productDetail->name = $request->name;
         $productDetail->description = $request->description;
-        $productDetail->price = $request->price;
+        $productDetail->sell_price = $request->sell_price;
+        $productDetail->rent_price = $request->rent_price;
         $productDetail->stock = $request->stock;
         $productDetail->update();
+
+        return redirect()->back()->with('success', 'Product Updated');
     }
 
     public function deleteProduct($id){
-        $productDetail = Category::find($id);
+        $productDetail = Product::find($id);
         $productDetail->delete();
+
+        return redirect('/')->with('success', 'Product Deleted');
     }
 }

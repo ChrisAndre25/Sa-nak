@@ -43,17 +43,42 @@
                 </form>
 
                 @if(Auth::check())
-                <li class="nav-item">
-                    <a class="nav-link my-1" href="{{ route('view-cart') }}" title="Cart">
-                        <i class="fas fa-shopping-cart fa-lg text-info"></i>
-                    </a>
-                </li>
+                    @if(Auth()->user()->role == 'USER')
+                    <li class="nav-item">
+                        <a class="nav-link my-1" href="{{ route('view-cart') }}" title="Cart">
+                            <i class="fas fa-shopping-cart fa-lg text-info"></i>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link my-1" href="{{ route('history') }}" title="Transaction History">
-                        <i class="fas fa-history fa-lg text-info"></i>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link my-1" href="{{ route('history') }}" title="Transaction History">
+                            <i class="fas fa-history fa-lg text-info"></i>
+                        </a>
+                    </li>
+                    @elseif (Auth()->user()->role == 'SELLER')
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Product
+                        </a>
+    
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('add-product') }}">
+                                {{ __('Add Product') }}
+                            </a>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                {{ __('Add Category') }}
+                            </a>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                {{ __('Update Category') }}
+                            </a>
+                        </div>
+                    </li>
+                    @endif
                 @endif
 
                 <li class="nav-item my-auto mx-2">

@@ -61,6 +61,8 @@
                     <p>{{ $product->description }}</p>
                 </div>
 
+                @if(Auth()->check())
+                @if (Auth()->user()->role == 'USER')
                 <div>
                     <label for="" class="font-weight-bold">Harga Barang</label>
                     <div class="row">
@@ -113,8 +115,22 @@
                         @endif
                     </div>
                 </div>
+                @elseif(Auth()->user()->role == 'SELLER')
+                <div class="d-flex justify-content-end">
+                    <form action="{{ action('SellerController@deleteProduct', $product->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger mx-1" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    <a href="{{ route('edit-product', $product->id)}}" class="btn btn-primary" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </div>
+                @endif
             </div>
-
+            @endif
         </div>
     </div>
 </div>
