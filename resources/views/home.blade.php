@@ -41,12 +41,8 @@
                                 <div class="card-body text-center">
                                     <h4 class="card-title">{{ $item->name }}</h4>
                                     <label class="card-text">Rp {{ number_format((($item->sell_price != 0)) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
-                                    @if($item->sell_price != 0)
                                     <a class="btn btn-info text-white" href="/edit_product/{{$item->id}}">Edit</a>
-                                    @endif
-                                    @if($item->rent_price != 0)
                                     <a class="btn btn-outline-primary"  href="/delete_product/{{$item->id}}">Delete</a>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -67,12 +63,8 @@
                                 <div class="card-body text-center">
                                     <h4 class="card-title">{{ $item->name }}</h4>
                                     <label class="card-text">Rp {{ number_format(($item->sell_price != 0) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
-                                    @if($item->sell_price != 0)
                                     <a class="btn btn-info text-white" href="/edit_product/{{$item->id}}">Edit</a>
-                                    @endif
-                                    @if($item->rent_price != 0)
                                     <a class="btn btn-outline-primary"  href="/delete_product/{{$item->id}}">Delete</a>
-                                    @endif
                                 </div>
                             </div>
                         </div>
