@@ -7,6 +7,7 @@ use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class SellerController extends Controller
@@ -133,11 +134,9 @@ class SellerController extends Controller
         return redirect()->back()->with('success', 'Produk baru ditambahkan');
     }
 
-    public function editProduct(Product $product){
-
-        return view('admin.edit_product', [
-            'product' => $product
-        ]);
+    public function editProduct($id){
+        $products = DB::table('products')->find($id);
+        return view('edit_product', ['products' => $products]);
     }
 
     public function updateProduct(Request $request, $id){

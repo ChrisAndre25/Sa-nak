@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,3 +51,5 @@ Route::post('/add-category', 'SellerController@addType');
 Route::get('/edit-category/{id}', 'SellerController@editType')->name('edit-type');
 Route::match(['PUT', 'PATCH'], '/edit-category/{id}', 'SellerController@updateType');
 Route::delete('/delete-category/{id}', 'SellerController@deleteType');
+Route::get('/edit_product/{id}', 'SellerController@editProduct');
+Route::get('/delete_product/{id}', 'SellerController@deleteProduct');

@@ -3,6 +3,91 @@
 @section('title','Homepage')
 
 @section('content')
+@if (auth()->user()->role == 'SELLER')
+    <div class="container">
+        <br><br>
+        <h2 class="text text-danger">Welcome Back, {{ Auth::user()->name }} !</h2><br>
+        <a href="/add-category"><button type="button" class="btn btn-danger">Add New Category</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/add-product"><button type="button" class="btn btn-danger">Add New Product</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div><br><br><br>
+    <div class="barang-populer py-4 bg-primary">
+        <div class="container">
+            <div class="d-flex justify-content-between py-2 text-white">
+                <h3 class="font-weight-bold">Daftar Barang</h3>
+                <!--Controls-->
+                <div class="font-weight-bold">
+                    <a class="btn" href="#multi-item-example" data-slide="prev">
+                        <i class="fas fa-chevron-left fa-lg text-white"></i>
+                    </a>
+                    <a class="btn" href="#multi-item-example" data-slide="next">
+                        <i class="fas fa-chevron-right fa-lg text-white"></i>
+                    </a>
+                </div>
+                <!--/.Controls-->
+            </div>
+            <!--Carousel Wrapper-->
+            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+    
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox">
+                    <!--First slide-->
+                    <div class="carousel-item active">
+                        @foreach($firstItems as $item)
+                        <div class="col-md-3" style="float:left">
+                            <div class="card mb-2">
+                                <img height="200em" class="card-img-top"
+                                    src="/storage/products/{{ $item->image }}"
+                                    alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">{{ $item->name }}</h4>
+                                    <label class="card-text">Rp {{ number_format((($item->sell_price != 0)) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
+                                    @if($item->sell_price != 0)
+                                    <a class="btn btn-info text-white" href="/edit_product/{{$item->id}}">Edit</a>
+                                    @endif
+                                    @if($item->rent_price != 0)
+                                    <a class="btn btn-outline-primary"  href="/delete_product/{{$item->id}}">Delete</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        
+                    </div>
+                    <!--/.First slide-->
+    
+                    <!--Second slide-->
+                    <div class="carousel-item">
+    
+                        @foreach($secondItems as $item)
+                        <div class="col-md-3" style="float:left">
+                            <div class="card mb-2">
+                                <img height="200em" class="card-img-top"
+                                    src="/storage/products/{{ $item->image }}"
+                                    alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">{{ $item->name }}</h4>
+                                    <label class="card-text">Rp {{ number_format(($item->sell_price != 0) ? $item->sell_price : $item->rent_price, 0, ',', '.') }}</label><br>
+                                    @if($item->sell_price != 0)
+                                    <a class="btn btn-info text-white" href="/edit_product/{{$item->id}}">Edit</a>
+                                    @endif
+                                    @if($item->rent_price != 0)
+                                    <a class="btn btn-outline-primary"  href="/delete_product/{{$item->id}}">Delete</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <!--/.Second slide-->
+                </div>
+                <!--/.Slides-->
+            </div>
+            <!--/.Carousel Wrapper-->
+        </div>
+    
+    </div>
+    
+@else
 <div class="container">
     <div class="row py-4">
         <div class="col-md-6">
@@ -171,4 +256,5 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
