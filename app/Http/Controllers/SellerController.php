@@ -7,33 +7,45 @@ use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SellerController extends Controller
 {
-    public function addSellerData(Request $request){ //register
+
+    public function showSellerRegister(){
+        
+        return view('auth.seller_register');
+    }
+
+    public function addSellerData(Request $request){ 
         $this->validate($request,[
             'name' => 'required|string|min:5|max:100',
             'email' => 'required|string|email|max:100|unique:users',
             'phone_number' => 'required|numeric',
             'address' => 'required|string|max:100',
             'password' => 'required|alpha_num|min:8|confirmed',
-            'shop_name' => 'required|min:5|max:100',
-            'shop_address' => 'required|string|max:100'
         ]);
 
-        $seller = new User();
+        $seller = new User;
         $seller->name = $request->name;
         $seller->role = 'SELLER';
         $seller->email = $request->email;
         $seller->phone_number = $request->phone_number;
         $seller->address = $request->address;
-        $seller->password = bcrypt($request->password);
-        $seller->shop_name = $request->shop_name;
-        $seller->shop_address = $request->shop_address;
+        $seller->password = Hash::make($request->password);
         $seller->save();
+
+        return redirect('/')->with('success', 'Registrasi Akun Berhasil');
     }
 
-    public function addProductType(Request $request){
+    public function createType(){
+        
+        return view('admin.add_category', [
+            'categories' => Category::select('id', 'name')->get(),
+        ]);
+    }
+
+    public function addType(Request $request){
         $this->validate($request,[
             'name' => 'required|unique:product_categories|min:5',
         ]);
@@ -41,10 +53,19 @@ class SellerController extends Controller
         $newCategory = new Category();
         $newCategory->name = $request->name;
         $newCategory->save();
+
+        return redirect()->back()->with('success', 'Kategori ditambahkan');
       
     }
 
-    public function updateProductType(Request $request,$id){
+    public function editType($id){
+
+        return view('admin.edit_category', [
+            'category' => Category::find($id)
+        ]);
+    }
+
+    public function updateType(Request $request,$id){
         $this->validate($request,[
             'name' => 'required|unique:product_categories|min:5',
         ]);
@@ -52,11 +73,15 @@ class SellerController extends Controller
         $category = Category::find($id);
         $category->name = $request->name;
         $category->update();
+
+        return redirect()->back()->with('success', 'Data Kategori diperbaharui');
     }
 
-    public function deleteProductType($id){
+    public function deleteType($id){
         $category = Category::find($id);
         $category->delete();
+
+        return redirect()->back()->with('success', 'Kategori dihapus');
     }
 
     public function createProduct(){
@@ -105,7 +130,7 @@ class SellerController extends Controller
 
         $newProduct->save();
 
-        return redirect()->back()->with('success', 'New Product Added');
+        return redirect()->back()->with('success', 'Produk baru ditambahkan');
     }
 
     public function editProduct(Product $product){
@@ -132,13 +157,13 @@ class SellerController extends Controller
         $productDetail->stock = $request->stock;
         $productDetail->update();
 
-        return redirect()->back()->with('success', 'Product Updated');
+        return redirect()->back()->with('success', 'Data Produk diperbaharui');
     }
 
     public function deleteProduct($id){
         $productDetail = Product::find($id);
         $productDetail->delete();
 
-        return redirect('/')->with('success', 'Product Deleted');
+        return redirect('/')->with('success', 'Data Produk dihapus');
     }
 }

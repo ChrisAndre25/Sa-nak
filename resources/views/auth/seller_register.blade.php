@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Sanak - Daftar')
+@section('title','Sanak - Daftar Seller')
 
 @section('content')
 <div class="container">
@@ -15,11 +15,11 @@
         <div class="col-md-5">
             <div class="card mb-2">
                 <div class="text-center pt-4">
-                    <h4>Daftar</h4>
+                    <h4>Daftar Seller</h4>
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ action('SellerController@addSellerData') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -102,9 +102,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="text-center">
-                        Ingin mendaftar menjadi seller? Daftar di<a href="{{ route('register-seller') }}" class="text-decoration-none">sini</a>
-                    </div>
                 </div>
             </div>
         </div>

@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/register-seller', 'SellerController@showSellerRegister')->name('register-seller');
+Route::post('/register-seller', 'SellerController@addSellerData');
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('view-product/{product}', 'HomeController@viewProduct')->name('view-product');
 Route::post('rating', 'HomeController@addRating')->name('add-rating');
@@ -41,3 +44,9 @@ Route::post('/add-product', 'SellerController@addProduct');
 Route::get('/edit-product/{product}', 'SellerController@editProduct')->name('edit-product');
 Route::match(['PUT', 'PATCH'], '/edit-product/{id}', 'SellerController@updateProduct');
 Route::delete('/delete-product/{id}', 'SellerController@deleteProduct');
+
+Route::get('/add-category', 'SellerController@createType')->name('add-type');
+Route::post('/add-category', 'SellerController@addType');
+Route::get('/edit-category/{id}', 'SellerController@editType')->name('edit-type');
+Route::match(['PUT', 'PATCH'], '/edit-category/{id}', 'SellerController@updateType');
+Route::delete('/delete-category/{id}', 'SellerController@deleteType');

@@ -66,15 +66,8 @@
                             <a class="dropdown-item" href="{{ route('add-product') }}">
                                 {{ __('Add Product') }}
                             </a>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">
-                                {{ __('Add Category') }}
-                            </a>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">
-                                {{ __('Update Category') }}
+                            <a class="dropdown-item" href="{{ route('add-type') }}">
+                                {{ __('Category') }}
                             </a>
                         </div>
                     </li>
